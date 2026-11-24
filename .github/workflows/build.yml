@@ -1,0 +1,50 @@
+name: Build
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+
+      - name: Kompilieren
+        run: |
+          set -o pipefail
+          mvn -B -ntp package 2>&1 | tee build.log
+
+      - name: Fehler anzeigen
+        if: failure()
+        run: |
+          grep -E "\[ERROR\]|error:" build.log | head -60 | while IFS= read -r line; do
+            echo "::error::${line//$'\n'/ }"
+          done
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: LobbySystem
+          path: target/LobbySystem-*.jar
+
+      - name: Release "latest" aktualisieren
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest
+          name: LobbySystem (neuester Build)
+          body: |
+            Automatischer Build von `${{ github.sha }}` – Paper 1.21.10 bis 26.3, Java 21+.
+            Die JAR in den `plugins`-Ordner deiner Lobby legen, Server starten, Lizenz & MySQL in `plugins/LobbySystem/config.json` eintragen.
+          files: target/LobbySystem-*.jar
+          make_latest: true
+          prerelease: false

@@ -1,0 +1,9 @@
+target/
+*.iml
+.idea/
+.vscode/
+build.log
+
+# Owner-Schlüssel für Lizenzen – NIEMALS committen!
+license-private.key
+*.private.key
