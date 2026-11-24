@@ -1,0 +1,48 @@
+name: LobbySystem
+version: '${project.version}'
+main: de.crafterteam.lobbysystem.LobbySystem
+api-version: '1.21'
+author: SujucDerBreite
+description: Modernes LobbySystem für Paper 1.21.10 – 26.3
+website: https://github.com/conlog06/lobbysystem-grok
+
+# Permissions werden NICHT hier vergeben – sie sind frei in der config.json
+# (permissions.prefix + permissions.suffix_*) einstellbar.
+commands:
+  build:
+    description: De-/aktiviert den Baumodus
+    usage: /build [Spieler]
+  lobbycoins:
+    description: Vergebe, entferne oder zeige Coins an
+    usage: /lobbycoins <add|remove|set|get> <Spieler> [Coins]
+    aliases: [lcoins]
+  setreward:
+    description: Setzt die Daily-Reward Hexe oder entfernt sie
+    usage: /setreward [remove]
+  setsettings:
+    description: Setzt den Einstellungs-Dorfbewohner oder entfernt ihn
+    usage: /setsettings [remove]
+  setspawn:
+    description: Setzt den Spawn-Punkt
+    usage: /setspawn
+  setwarp:
+    description: Setzt, entfernt oder listet Warp-Punkte
+    usage: /setwarp <Name> | /setwarp remove <Name> | /setwarp list
+  warp:
+    description: Teleportiert dich zu einem Warp-Punkt
+    usage: /warp <Name>
+  spawn:
+    description: Teleportiert dich zum Spawn
+    usage: /spawn
+    aliases: [l, lobby]
+  tpcoord:
+    description: Teleportiert dich zu Koordinaten
+    usage: /tpcoord <x> <y> <z> [Welt] [Yaw] [Pitch]
+  license:
+    description: Lizenzverwaltung (nur Owner)
+    usage: /license <create|list|info|verify>
+    aliases: [lizenz]
+  lobbysystem:
+    description: Infos & Reload
+    usage: /lobbysystem <reload|info>
+    aliases: [ls]
